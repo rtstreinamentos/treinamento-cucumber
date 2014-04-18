@@ -9,11 +9,6 @@ import rts.treinamento.app.ServiceLogin;
 
 public class LoginTest {
 
-	/**
-	 * Dado que tenho credencias válidas
-	 * Quando tento logar
-	 * Então minha autenticação é feita com sucesso
-	 */
 	@Test
 	public void testeLogarComSucesso() {
 		String emailValido = "teste@teste.com";
@@ -22,12 +17,6 @@ public class LoginTest {
 		assertTrue(ServiceLogin.fazerLogin(emailValido, senha));
 	}
 	
-	
-	/**
-	 * Dado que não tenho um e-mail
-	 * Quando tento logar
-	 * Então minha autenticação não é finalizada
-	 */
 	@Test
 	public void testeLogarSemInformarEmail() {
 		String emailValido = null;
@@ -36,11 +25,6 @@ public class LoginTest {
 		assertFalse(ServiceLogin.fazerLogin(emailValido, senha));
 	}
 
-	/**
-	 * Dado que não tenho um e-mail
-	 * Quando tento logar
-	 * Então minha autenticação não é finalizada
-	 */
 	@Test
 	public void testeLogarComEmailEmBranco() {
 		String emailValido = "";
@@ -49,11 +33,6 @@ public class LoginTest {
 		assertFalse(ServiceLogin.fazerLogin(emailValido, senha));
 	}
 	
-	/**
-	 * Dado que não lembro minha senha
-	 * Quando tento logar sem preencher a senha
-	 * Então minha autenticação não é finalizada
-	 */
 	@Test
 	public void testeLogarSemInformarSenha() {
 		String emailValido = "teste@teste.com";
@@ -62,11 +41,6 @@ public class LoginTest {
 		assertFalse(ServiceLogin.fazerLogin(emailValido, senha));
 	}
 	
-	/**
-	 * Dado que não lembro minha senha
-	 * Quando tento logar sem preencher a senha
-	 * Então minha autenticação não é finalizada
-	 */
 	@Test
 	public void testeLogarComSenhaEmBranco() {
 		String emailValido = "teste@teste.com";
@@ -75,11 +49,6 @@ public class LoginTest {
 		assertFalse(ServiceLogin.fazerLogin(emailValido, senha));
 	}
 	
-	/**
-	 * Dado que não lembro minha senha
-	 * Quando tento logar com uma senha errada
-	 * Então minha autenticação não é finalizada
-	 */
 	@Test 
 	public void testeTentarLogarComSenhaErrada() {
 		String emailValido = "teste@teste.com";
@@ -88,11 +57,6 @@ public class LoginTest {
 		assertFalse(ServiceLogin.fazerLogin(emailValido, senha));
 	}
 	
-	/**
-	 * Dado que não lembro meu e-mail de cadastro
-	 * Quando tento logar com um e-mail não cadastrado
-	 * Então minha autenticação não é finalizada
-	 */	
 	@Test 
 	public void testeTentarLogarComUsuarioNaoCadastrado() {
 		String emailValido = "usuarionaocadastrado@teste.com";
