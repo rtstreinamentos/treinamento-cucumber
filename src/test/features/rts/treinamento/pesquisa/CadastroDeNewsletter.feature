@@ -17,6 +17,12 @@ Funcionalidade: Cadastrar um e-mail para receber Newsletter
     Quando cadastro meu e-mail
     Então visualizo a mensagem informando que o e-mail já havia sido cadastrado
 
-  Cenário: Tentar cadastrar e-mail inválido
-    Quando tento cadastrar um e-mail inválido
+  Esquema do Cenário: Tentar cadastrar e-mail inválido
+    Quando tento cadastrar o e-mail "<email inválido>"
     Então não consigo cadastrar o email na newsletter
+
+    Cenários: Lista de e-mails inválidos
+      | email inválido |
+      | aaa@teste      |
+      | @teste.com     |
+      | aa.teste.com   |

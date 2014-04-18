@@ -1,7 +1,15 @@
 package rts.treinamento;
 
+import rts.treinamento.box.Newsletter;
+
 public class PaginaPrincipal {
 
+	private Newsletter boxNewsletter;
+
+	public PaginaPrincipal() {
+		boxNewsletter = new Newsletter();
+	}
+	
 	public void abrir() {
 		System.out.println("Abriu a página [PaginaPrincipal]");
 	}
@@ -22,4 +30,11 @@ public class PaginaPrincipal {
 		return true;
 	}
 
+	public boolean exibiuNewsletter() {
+		return true;
+	}
+
+	public Newsletter newsletter() {
+		return boxNewsletter;
+	}
 }
