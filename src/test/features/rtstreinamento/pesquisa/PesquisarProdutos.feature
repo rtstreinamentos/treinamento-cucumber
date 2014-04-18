@@ -11,7 +11,7 @@ Funcionalidade: Pesquisar produtos na loja
     Quando realizo uma pesquisa pelo produto
     Então visualizo o produto pesquisado
 
-  @validação
+  @validação @funcionalidade-principal
   Cenário: Pesquisar produtos com nomes semelhantes
     Dado que existam produtos com nomes semelhantes
     Quando realizo uma pesquisa por parte do nome
