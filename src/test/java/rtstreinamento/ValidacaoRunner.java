@@ -7,8 +7,12 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-			features="src/test/features"
+			features="src/test/features",
+			tags= {
+					"@validação",
+					"~@exceção"
+			}
 		)
-public class CukesRunnerTest {
+public class ValidacaoRunner {
 
 }
