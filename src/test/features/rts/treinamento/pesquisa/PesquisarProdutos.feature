@@ -1,4 +1,4 @@
-# language: pt-br
+# language: pt
 
 Funcionalidade: Pesquisar produtos na loja
 	Como cliente
