@@ -73,7 +73,13 @@ public class PesquisarProdutosSteps {
 		WebElement tituloPagina = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[1]/ul/li[3]/strong"));
 	    assertEquals("Resultado de busca", tituloPagina.getText());	
 	    
+	    // Verifico se exibiu o primeiro e o segundo produto pesquisado
+	    WebElement tituloPrimeiroProduto = navegador.findElement(By.xpath("//*[@id=\"listagemProdutos\"]/ul/li/ul/li[1]/div/a"));
+	    assertEquals("Bluray - Senhor dos Anéis -  As Duas Torres", tituloPrimeiroProduto.getAttribute("title"));
 	    
+	    WebElement tituloSegundoProduto = navegador.findElement(By.xpath("//*[@id=\"listagemProdutos\"]/ul/li/ul/li[2]/div/a"));
+	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", tituloSegundoProduto.getAttribute("title"));
+
 	}
 
 	@Dado("^que exista um produto indisponível$")
