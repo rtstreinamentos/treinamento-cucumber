@@ -1,8 +1,9 @@
 package rtstreinamento.steps;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cucumber.api.PendingException;
@@ -34,32 +35,45 @@ public class PesquisarProdutosSteps {
 
 	@Quando("^realizo uma pesquisa pelo produto$")
 	public void realizo_uma_pesquisa_pelo_produto() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
+	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
+	    
+	    caixaPesquisa.sendKeys("Bluray - Senhor dos Anéis - A Sociedade do Anel");
+	    butaoPesquisar.click();
 	}
 
 	@Então("^visualizo o produto pesquisado$")
 	public void visualizo_o_produto_pesquisado() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		// Verifico se estou na página de pesquisa
+		WebElement tituloPagina = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[1]/ul/li[3]/strong"));
+	    assertEquals("Resultado de busca", tituloPagina.getText());
+	    
+	    // Verifico se exibiu o produto pesquisado
+	    WebElement tituloPrimeiroProduto = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[2]/div[2]/div[2]/h1"));
+	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", tituloPrimeiroProduto.getText());
 	}
 
 	@Dado("^que existam produtos com nomes semelhantes$")
 	public void que_existam_produtos_com_nomes_semelhantes() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		// Não faz nada ou verifica se existem os 2 filmes Senhor dos Anéis da página principal
 	}
 
 	@Quando("^realizo uma pesquisa por parte do nome$")
 	public void realizo_uma_pesquisa_por_parte_do_nome() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
+	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
+	    
+	    caixaPesquisa.sendKeys("Senhor dos Anéis");
+	    butaoPesquisar.click();
 	}
 
 	@Então("^visualizo os produtos com nomes semelhantes$")
 	public void visualizo_os_produtos_com_nomes_semelhantes() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		// Verifico se estou na página de pesquisa
+		WebElement tituloPagina = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[1]/ul/li[3]/strong"));
+	    assertEquals("Resultado de busca", tituloPagina.getText());	
+	    
+	    
 	}
 
 	@Dado("^que exista um produto indisponível$")
