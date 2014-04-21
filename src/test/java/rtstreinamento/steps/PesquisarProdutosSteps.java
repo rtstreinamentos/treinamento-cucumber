@@ -1,5 +1,11 @@
 package rtstreinamento.steps;
 
+import static org.junit.Assert.*;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import cucumber.api.PendingException;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
@@ -8,8 +14,10 @@ import cucumber.api.java.pt.Quando;
 public class PesquisarProdutosSteps {
 	@Dado("^que exista um produto disponível$")
 	public void que_exista_um_produto_disponível() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    WebDriver navegador = new FirefoxDriver();
+	    navegador.get("http://tghcastro.lojaintegrada.com.br/");
+	    
+	    assertNotNull(navegador.findElements(By.className("listagem-linha")));
 	}
 
 	@Quando("^realizo uma pesquisa pelo produto$")
