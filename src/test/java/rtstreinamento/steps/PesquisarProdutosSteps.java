@@ -1,22 +1,34 @@
 package rtstreinamento.steps;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
 
 public class PesquisarProdutosSteps {
+	
+	private FirefoxDriver navegador;
+
+	@Before
+	public void noInicioDoCenario() {
+	    navegador = new FirefoxDriver();
+	    navegador.get("http://tghcastro.lojaintegrada.com.br/");		
+	}
+	
+	@After
+	public void noFimDoCenario() {
+		navegador.quit();
+	}
+	
 	@Dado("^que exista um produto disponível$")
 	public void que_exista_um_produto_disponível() throws Throwable {
-	    WebDriver navegador = new FirefoxDriver();
-	    navegador.get("http://tghcastro.lojaintegrada.com.br/");
-	    
 	    assertNotNull(navegador.findElements(By.className("listagem-linha")));
 	}
 
