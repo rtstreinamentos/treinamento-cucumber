@@ -84,37 +84,47 @@ public class PesquisarProdutosSteps {
 
 	@Dado("^que exista um produto indisponível$")
 	public void que_exista_um_produto_indisponível() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    assertNotNull(navegador.findElementByClassName("bandeira-indisponivel"));
 	}
 
 	@Quando("^realizo a pesquisa por um produto indisponível$")
 	public void realizo_a_pesquisa_por_um_produto_indisponível() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
+	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
+	    
+	    caixaPesquisa.sendKeys("Thor");
+	    butaoPesquisar.click();
 	}
 
 	@Então("^visualo o produto marcado como indisponível$")
 	public void visualo_o_produto_marcado_como_indisponível() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+		// Verifico se estou na página de pesquisa
+		WebElement tituloPagina = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[1]/ul/li[3]/strong"));
+	    assertEquals("Resultado de busca", tituloPagina.getText());	
+	    
+	    // Verifico se exibiu o primeiro com a tag indisponível
+	    WebElement tituloIndiponivelPrimeiroProduto = navegador.findElement(By.cssSelector("#listagemProdutos > ul > li > ul > li > div > div.bandeiras-produto > span"));
+	    assertEquals("INDISPONÍVEL", tituloIndiponivelPrimeiroProduto.getText());
 	}
 
 	@Dado("^que existam produtos não cadastrados$")
 	public void que_existam_produtos_não_cadastrados() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    //Não faz nada
 	}
 
 	@Quando("^realizo a pesquisa por seu nome$")
 	public void realizo_a_pesquisa_por_seu_nome() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
+	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
+	    
+	    caixaPesquisa.sendKeys("Capitão América");
+	    butaoPesquisar.click();
 	}
 
 	@Então("^visualizo uma mensagem dizendo que o produto não foi encontrado$")
 	public void visualizo_uma_mensagem_dizendo_que_o_produto_não_foi_encontrado() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
-	    throw new PendingException();
+	    String mensagemProdutoInexistente = "Sua busca por: \"Capitão América\" não encontrou nenhum resultado";
+	    WebElement produtoInexistente = navegador.findElement(By.tagName("h1"));
+	    assertEquals(mensagemProdutoInexistente, produtoInexistente.getText());
 	}
 }
