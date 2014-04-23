@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import rtstreinamento.paginas.PaginaPesquisa;
+import rtstreinamento.paginas.PaginaResultadoPesquisa;
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -14,43 +16,39 @@ import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
 
 public class PesquisarProdutosSteps {
+		
+	private PaginaPesquisa paginaPesquisa;
+	private PaginaResultadoPesquisa paginaResultado;
 	
-	private FirefoxDriver navegador;
-
 	@Before
 	public void noInicioDoCenario() {
-	    navegador = new FirefoxDriver();
-	    navegador.get("http://tghcastro.lojaintegrada.com.br/");		
+		paginaPesquisa = new PaginaPesquisa();
+		paginaPesquisa.abrir();	
 	}
 	
 	@After
 	public void noFimDoCenario() {
-		navegador.quit();
+		paginaPesquisa.fechar();
 	}
 	
 	@Dado("^que exista um produto disponível$")
 	public void que_exista_um_produto_disponível() throws Throwable {
-	    assertNotNull(navegador.findElements(By.className("listagem-linha")));
+	    assertTrue(paginaPesquisa.existeProdutoDisponivel());
 	}
 
 	@Quando("^realizo uma pesquisa pelo produto$")
 	public void realizo_uma_pesquisa_pelo_produto() throws Throwable {
-	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
-	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
-	    
-	    caixaPesquisa.sendKeys("Bluray - Senhor dos Anéis - A Sociedade do Anel");
-	    butaoPesquisar.click();
+		paginaPesquisa.preencherCampoPesquisa("Bluray - Senhor dos Anéis - A Sociedade do Anel");
+		paginaResultado = paginaPesquisa.pesquisar();
 	}
 
 	@Então("^visualizo o produto pesquisado$")
 	public void visualizo_o_produto_pesquisado() throws Throwable {
 		// Verifico se estou na página de pesquisa
-		WebElement tituloPagina = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[1]/ul/li[3]/strong"));
-	    assertEquals("Resultado de busca", tituloPagina.getText());
+	    assertTrue(paginaResultado.tituloPagina());
 	    
 	    // Verifico se exibiu o produto pesquisado
-	    WebElement tituloPrimeiroProduto = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[2]/div[2]/div[2]/h1"));
-	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", tituloPrimeiroProduto.getText());
+	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", paginaResultado.getTituloPrimeiroProdutoResultadoUnico());
 	}
 
 	@Dado("^que existam produtos com nomes semelhantes$")
@@ -60,51 +58,38 @@ public class PesquisarProdutosSteps {
 
 	@Quando("^realizo uma pesquisa por parte do nome$")
 	public void realizo_uma_pesquisa_por_parte_do_nome() throws Throwable {
-	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
-	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
-	    
-	    caixaPesquisa.sendKeys("Senhor dos Anéis");
-	    butaoPesquisar.click();
+		paginaPesquisa.preencherCampoPesquisa("Senhor dos Anéis");
+		paginaResultado = paginaPesquisa.pesquisar();
 	}
 
 	@Então("^visualizo os produtos com nomes semelhantes$")
 	public void visualizo_os_produtos_com_nomes_semelhantes() throws Throwable {
 		// Verifico se estou na página de pesquisa
-		WebElement tituloPagina = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[1]/ul/li[3]/strong"));
-	    assertEquals("Resultado de busca", tituloPagina.getText());	
-	    
+		assertTrue(paginaResultado.tituloPagina());
+		
 	    // Verifico se exibiu o primeiro e o segundo produto pesquisado
-	    WebElement tituloPrimeiroProduto = navegador.findElement(By.xpath("//*[@id=\"listagemProdutos\"]/ul/li/ul/li[1]/div/a"));
-	    assertEquals("Bluray - Senhor dos Anéis -  As Duas Torres", tituloPrimeiroProduto.getAttribute("title"));
-	    
-	    WebElement tituloSegundoProduto = navegador.findElement(By.xpath("//*[@id=\"listagemProdutos\"]/ul/li/ul/li[2]/div/a"));
-	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", tituloSegundoProduto.getAttribute("title"));
-
+	    assertEquals("Bluray - Senhor dos Anéis -  As Duas Torres", paginaResultado.tituloPrimeiroProdutoResultadoMultiplo());
+	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", paginaResultado.tituloSegundoProdutoResultadoMultiplo());
 	}
 
 	@Dado("^que exista um produto indisponível$")
 	public void que_exista_um_produto_indisponível() throws Throwable {
-	    assertNotNull(navegador.findElementByClassName("bandeira-indisponivel"));
+	    assertTrue(paginaPesquisa.existeProdutoIndisponivel());
 	}
 
 	@Quando("^realizo a pesquisa por um produto indisponível$")
 	public void realizo_a_pesquisa_por_um_produto_indisponível() throws Throwable {
-	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
-	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
-	    
-	    caixaPesquisa.sendKeys("Thor");
-	    butaoPesquisar.click();
+	    paginaPesquisa.preencherCampoPesquisa("Thor");
+	    paginaResultado = paginaPesquisa.pesquisar();
 	}
 
 	@Então("^visualo o produto marcado como indisponível$")
 	public void visualo_o_produto_marcado_como_indisponível() throws Throwable {
 		// Verifico se estou na página de pesquisa
-		WebElement tituloPagina = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[1]/ul/li[3]/strong"));
-	    assertEquals("Resultado de busca", tituloPagina.getText());	
-	    
+		assertTrue(paginaResultado.tituloPagina());
+		
 	    // Verifico se exibiu o primeiro com a tag indisponível
-	    WebElement tituloIndiponivelPrimeiroProduto = navegador.findElement(By.cssSelector("#listagemProdutos > ul > li > ul > li > div > div.bandeiras-produto > span"));
-	    assertEquals("INDISPONÍVEL", tituloIndiponivelPrimeiroProduto.getText());
+	    assertEquals("INDISPONÍVEL", paginaPesquisa.tituloIndiponivelPrimeiroProduto());
 	}
 
 	@Dado("^que existam produtos não cadastrados$")
@@ -114,17 +99,13 @@ public class PesquisarProdutosSteps {
 
 	@Quando("^realizo a pesquisa por seu nome$")
 	public void realizo_a_pesquisa_por_seu_nome() throws Throwable {
-	    WebElement caixaPesquisa = navegador.findElement(By.id("auto-complete"));
-	    WebElement butaoPesquisar = navegador.findElement(By.xpath("//*[@id=\"form-buscar\"]/button"));
-	    
-	    caixaPesquisa.sendKeys("Capitão América");
-	    butaoPesquisar.click();
+		paginaPesquisa.preencherCampoPesquisa("Capitão América");
+	    paginaResultado = paginaPesquisa.pesquisar();
 	}
 
 	@Então("^visualizo uma mensagem dizendo que o produto não foi encontrado$")
 	public void visualizo_uma_mensagem_dizendo_que_o_produto_não_foi_encontrado() throws Throwable {
 	    String mensagemProdutoInexistente = "Sua busca por: \"Capitão América\" não encontrou nenhum resultado";
-	    WebElement produtoInexistente = navegador.findElement(By.tagName("h1"));
-	    assertEquals(mensagemProdutoInexistente, produtoInexistente.getText());
+	    assertEquals(mensagemProdutoInexistente, paginaResultado.mensagemProdutoInexistente());
 	}
 }

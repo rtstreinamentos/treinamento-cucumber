@@ -5,13 +5,13 @@ Funcionalidade: Pesquisar produtos na loja
   Para facilitar a compra de um produto
   Quero pesquisar um produto na loja
 
-  @validação
+  @validação @funcionalidade-principal
   Cenário: Pesquisar um produto disponível
     Dado que exista um produto disponível
     Quando realizo uma pesquisa pelo produto
     Então visualizo o produto pesquisado
 
-  @validação @funcionalidade-principal
+  @validação 
   Cenário: Pesquisar produtos com nomes semelhantes
     Dado que existam produtos com nomes semelhantes
     Quando realizo uma pesquisa por parte do nome
