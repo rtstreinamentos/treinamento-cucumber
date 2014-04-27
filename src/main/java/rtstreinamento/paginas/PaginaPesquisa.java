@@ -15,7 +15,7 @@ public class PaginaPesquisa extends Navegador {
 	}
 	
 	public boolean existeProdutoIndisponivel() {
-		return navegador.findElementByClassName("bandeira-indisponivel") != null;
+		return navegador.findElement(By.className("bandeira-indisponivel")) != null;
 	}
 
 	public void preencherCampoPesquisa(String textoPesquisado) {

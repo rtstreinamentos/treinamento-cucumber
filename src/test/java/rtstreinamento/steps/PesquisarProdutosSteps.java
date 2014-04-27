@@ -1,14 +1,12 @@
 package rtstreinamento.steps;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import java.io.IOException;
 
 import rtstreinamento.paginas.PaginaPesquisa;
 import rtstreinamento.paginas.PaginaResultadoPesquisa;
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
@@ -27,7 +25,7 @@ public class PesquisarProdutosSteps {
 	}
 	
 	@After
-	public void noFimDoCenario() {
+	public void noFimDoCenario() throws IOException {
 		paginaPesquisa.fechar();
 	}
 	
@@ -49,6 +47,7 @@ public class PesquisarProdutosSteps {
 	    
 	    // Verifico se exibiu o produto pesquisado
 	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", paginaResultado.getTituloPrimeiroProdutoResultadoUnico());
+	    paginaResultado.printTela("produto-pesquisado.png");
 	}
 
 	@Dado("^que existam produtos com nomes semelhantes$")
@@ -70,6 +69,8 @@ public class PesquisarProdutosSteps {
 	    // Verifico se exibiu o primeiro e o segundo produto pesquisado
 	    assertEquals("Bluray - Senhor dos Anéis -  As Duas Torres", paginaResultado.tituloPrimeiroProdutoResultadoMultiplo());
 	    assertEquals("Bluray - Senhor dos Anéis - A Sociedade do Anel", paginaResultado.tituloSegundoProdutoResultadoMultiplo());
+	    
+	    paginaResultado.printTela("produtos-nomes-semelhantes.png");
 	}
 
 	@Dado("^que exista um produto indisponível$")
@@ -90,6 +91,7 @@ public class PesquisarProdutosSteps {
 		
 	    // Verifico se exibiu o primeiro com a tag indisponível
 	    assertEquals("INDISPONÍVEL", paginaPesquisa.tituloIndiponivelPrimeiroProduto());
+	    paginaResultado.printTela("produto-indiponivel.png");
 	}
 
 	@Dado("^que existam produtos não cadastrados$")
@@ -107,5 +109,6 @@ public class PesquisarProdutosSteps {
 	public void visualizo_uma_mensagem_dizendo_que_o_produto_não_foi_encontrado() throws Throwable {
 	    String mensagemProdutoInexistente = "Sua busca por: \"Capitão América\" não encontrou nenhum resultado";
 	    assertEquals(mensagemProdutoInexistente, paginaResultado.mensagemProdutoInexistente());
+	    paginaResultado.printTela("mensagem-produto-inexistente.png");
 	}
 }

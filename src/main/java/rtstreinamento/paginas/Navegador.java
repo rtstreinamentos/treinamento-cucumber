@@ -1,9 +1,16 @@
 package rtstreinamento.paginas;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public abstract class Navegador {
-	protected static FirefoxDriver navegador;
+	protected static WebDriver navegador;
 	
 	protected void abrirNavegador() {
 		navegador = new FirefoxDriver();
@@ -11,5 +18,11 @@ public abstract class Navegador {
 	
 	public void fechar() {
 		navegador.quit();
+	}
+	
+	public void printTela(String nomeArquivo) throws IOException {
+		File file = ((TakesScreenshot)navegador).getScreenshotAs(OutputType.FILE);
+		String nomeCompletoArquivo = "target\\" + nomeArquivo;
+		FileUtils.copyFile(file, new File(nomeCompletoArquivo));
 	}
 }
