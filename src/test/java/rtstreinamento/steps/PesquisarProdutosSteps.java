@@ -17,9 +17,8 @@ public class PesquisarProdutosSteps {
 
 	private PaginaPesquisa paginaPesquisa;
 	private PaginaResultadoPesquisa paginaResultado;
-	
-	@Before
-	public void noInicioDoTeste() {
+
+	public PesquisarProdutosSteps() {
 		paginaPesquisa = new PaginaPesquisa();
 		paginaPesquisa.abrir();  
 	}

@@ -1,7 +1,5 @@
 package rtstreinamento.paginas;
 
-import static org.junit.Assert.assertEquals;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

@@ -3,11 +3,16 @@ package rtstreinamento.paginas;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import rtstreinamento.box.BoxCarrinho;
+
 public class PaginaPesquisa extends Navegador {
+
+	private BoxCarrinho boxCarrinho;
 
 	public void abrir() {
 		abrirNavegador();
 	    navegador.get("http://tghcastro.lojaintegrada.com.br/");	
+	    boxCarrinho = new BoxCarrinho();
 	}
 
 	public boolean existeProdutoDisponivel() {
@@ -32,5 +37,17 @@ public class PaginaPesquisa extends Navegador {
 	public String tituloIndiponivelPrimeiroProduto() {
 		WebElement tituloIndiponivelPrimeiroProduto = navegador.findElement(By.cssSelector("#listagemProdutos > ul > li > ul > li > div > div.bandeiras-produto > span"));
 	    return tituloIndiponivelPrimeiroProduto.getText();
-	}	
+	}
+
+	public BoxCarrinho boxCarrinho() {
+		return boxCarrinho;
+	}
+
+	public PaginaDetalheProduto clicarNoProduto(int indice) {
+		String xpath = "//*[@id=\"listagemProdutos\"]/ul/li/ul/li[" + indice + "]/div/a";
+		navegador.findElement(By.xpath(xpath)).click();
+		return new PaginaDetalheProduto();
+	}
+
+
 }

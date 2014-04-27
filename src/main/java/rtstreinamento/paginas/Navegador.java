@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -33,4 +34,13 @@ public abstract class Navegador {
 		String nomeCompletoArquivo = "target\\" + nomeArquivo;
 		FileUtils.copyFile(file, new File(nomeCompletoArquivo));
 	}
+	
+	public void excluirCookieSessao() {
+		navegador.manage().deleteCookieNamed("sessionid");
+	}	
+	
+	public void recarregar() {
+		navegador.navigate().refresh();
+	}
+
 }
