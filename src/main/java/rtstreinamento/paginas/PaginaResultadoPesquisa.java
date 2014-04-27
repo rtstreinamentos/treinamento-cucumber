@@ -13,7 +13,7 @@ public class PaginaResultadoPesquisa extends Navegador {
 	}
 
 	public String getTituloPrimeiroProdutoResultadoUnico() {
-	    WebElement tituloPrimeiroProduto = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[2]/div[2]/div[2]/h1"));
+	    WebElement tituloPrimeiroProduto = navegador.findElement(By.xpath("//*[@id=\"corpo\"]/div/div[2]/div[2]/div[1]/h1"));
 	    return tituloPrimeiroProduto.getText();
 	}
 

@@ -11,17 +11,25 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public abstract class Navegador {
 	protected static WebDriver navegador;
-	
+
 	protected void abrirNavegador() {
-		navegador = new FirefoxDriver();
+		if (navegador == null) {
+			navegador = new FirefoxDriver();
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				public void run() {
+					fechar();
+				}
+			});
+		}
 	}
-	
+
 	public void fechar() {
 		navegador.quit();
 	}
-	
+
 	public void printTela(String nomeArquivo) throws IOException {
-		File file = ((TakesScreenshot)navegador).getScreenshotAs(OutputType.FILE);
+		File file = ((TakesScreenshot) navegador)
+				.getScreenshotAs(OutputType.FILE);
 		String nomeCompletoArquivo = "target\\" + nomeArquivo;
 		FileUtils.copyFile(file, new File(nomeCompletoArquivo));
 	}
