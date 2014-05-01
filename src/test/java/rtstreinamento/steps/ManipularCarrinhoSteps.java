@@ -29,12 +29,14 @@ public class ManipularCarrinhoSteps {
 	@Dado("^que inclui (\\d+) produto no carrinho$")
 	public void que_inclui_produto_no_carrinho(int quantidadeProdutosCarrinho) throws Throwable {
 	   this.que_não_existam_produtos_no_meu_carrinho();
-	   paginaCarrinho = paginaPesquisa.clicarNoProduto(1).comprar();
+	   for (int i = 1; i <= quantidadeProdutosCarrinho; i++) {
+		   paginaCarrinho = paginaPesquisa.clicarNoProduto(i).comprar();
+	   }
 	}
 	
-	@Dado("^que o valor unitário do produto é R\\$ \"([^\"]*)\"$")
-	public void que_o_valor_unitário_do_produto_é_R$(String arg1) throws Throwable {
-	
+	@Dado("^que o valor unitário do produto é \"([^\"]*)\"$")
+	public void que_o_valor_unitário_do_produto_é_R$(String valorUnitario) throws Throwable {
+		assertEquals(valorUnitario, paginaCarrinho.valorUniatioPrimeiroProduto());
 	}
 
 	@Quando("^decido comprar um produto$")
@@ -50,9 +52,9 @@ public class ManipularCarrinhoSteps {
 		paginaCarrinho = paginaPesquisa.clicarNoProduto(2).comprar();
 	}
 	
-	@Quando("^aumento a quantidade desse produto \"([^\"]*)\" vez$")
-	public void aumento_a_quantidade_desse_produto_vez(String arg1) throws Throwable {
-
+	@Quando("^aumento a quantidade desse produto para (\\d+)$")
+	public void aumento_a_quantidade_desse_produto_vez(int quantidade) throws Throwable {
+		paginaCarrinho.aumentarQuantidadePara(quantidade);
 	}
 
 	@Então("^visualizo meu carrinho de compras (\\d+) produto.")
@@ -65,8 +67,8 @@ public class ManipularCarrinhoSteps {
 		assertEquals(quantidadeProdutos, paginaCarrinho.quantidadeProdutos());
 	}
 
-	@Então("^o total do carrinho deve ser R\\$ \"([^\"]*)\"$")
-	public void o_total_do_carrinho_deve_ser_R$(String arg1) throws Throwable {
-
+	@Então("^o total do carrinho deve ser \"([^\"]*)\"$")
+	public void o_total_do_carrinho_deve_ser_R$(String total) throws Throwable {
+		assertEquals(total, paginaCarrinho.valorTotal());
 	}
 }
