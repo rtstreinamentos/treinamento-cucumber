@@ -49,5 +49,10 @@ public class PaginaPesquisa extends Navegador {
 		return new PaginaDetalheProduto();
 	}
 
+	public PaginaIdentificacao clicarIdentificacao() {
+		navegador.findElement(By.className("bem-vindo")).click();
+		return new PaginaIdentificacao();
+	}
+
 
 }
