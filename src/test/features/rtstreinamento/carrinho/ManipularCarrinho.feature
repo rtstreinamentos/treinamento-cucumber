@@ -11,7 +11,7 @@ Funcionalidade: Manipular produtos no carrinho
     Quando decido comprar um produto
     Então visualizo meu carrinho de compras 1 produto
 
-  @validação
+  @validação @funcionalidade-principal
   Cenário: Continuar comprando após incluir um produto no carrinho
     Dado que inclui 1 produto no carrinho
     Quando decido comprar um segundo produto
@@ -27,3 +27,4 @@ Funcionalidade: Manipular produtos no carrinho
     Cenários: Atualizar a quantidade total
       | valor unitário | quantidade | total |
       | 180            | 1          | 360   |
+      | 180            | 2          | 540   |

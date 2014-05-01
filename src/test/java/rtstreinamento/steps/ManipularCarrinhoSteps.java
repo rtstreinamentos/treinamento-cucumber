@@ -27,8 +27,9 @@ public class ManipularCarrinhoSteps {
 	}
 	
 	@Dado("^que inclui (\\d+) produto no carrinho$")
-	public void que_inclui_produto_no_carrinho(int indiceProduto) throws Throwable {
-	   
+	public void que_inclui_produto_no_carrinho(int quantidadeProdutosCarrinho) throws Throwable {
+	   this.que_não_existam_produtos_no_meu_carrinho();
+	   paginaCarrinho = paginaPesquisa.clicarNoProduto(1).comprar();
 	}
 	
 	@Dado("^que o valor unitário do produto é R\\$ \"([^\"]*)\"$")
@@ -39,14 +40,14 @@ public class ManipularCarrinhoSteps {
 	@Quando("^decido comprar um produto$")
 	public void decido_comprar_um_produto() throws Throwable {
 		int indiceProduto = 1;
-		paginaDetalheProduto = paginaPesquisa.clicarNoProduto(indiceProduto );
+		paginaDetalheProduto = paginaPesquisa.clicarNoProduto(indiceProduto);
 		paginaCarrinho = paginaDetalheProduto.comprar();
 	}
 
 	@Quando("^decido comprar um segundo produto$")
 	public void decido_comprar_um_segundo_produto() throws Throwable {
-		que_inclui_produto_no_carrinho(2);
-		decido_comprar_um_produto();		
+		paginaCarrinho.clicarLogo();
+		paginaCarrinho = paginaPesquisa.clicarNoProduto(2).comprar();
 	}
 	
 	@Quando("^aumento a quantidade desse produto \"([^\"]*)\" vez$")
