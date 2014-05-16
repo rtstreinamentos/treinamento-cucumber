@@ -10,13 +10,15 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public abstract class Navegador {
 	protected static WebDriver navegador;
 
 	protected void abrirNavegador() {
 		if (navegador == null) {
-			navegador = new FirefoxDriver();
+			System.setProperty("phantomjs.binary.path", "C:\\web-drivers\\phantomjs.exe");
+			navegador = new PhantomJSDriver();
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 				public void run() {
 					fechar();
